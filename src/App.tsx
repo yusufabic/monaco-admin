@@ -1,7 +1,8 @@
-import "./App.less";
+// import "./App.less";
+import AppRoutes from "./containers/routes/AppRoutes";
 
 function App() {
-  return <div className="app">Hello Vite + React!</div>;
+  return <AppRoutes />;
 }
 
 export default App;
