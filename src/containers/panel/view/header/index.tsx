@@ -1,9 +1,11 @@
+import UserMenu from "./user-menu";
+
 interface HeaderProps {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
 }
 
-function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
+const Header = ({ sidebarOpen, setSidebarOpen }: HeaderProps) => {
   return (
     <header className="sticky top-0 bg-white border-b border-slate-200 z-30">
       <div className="px-4 sm:px-6 lg:px-8">
@@ -29,10 +31,13 @@ function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
               </svg>
             </button>
           </div>
+          <div className="flex items-center">
+            <UserMenu />
+          </div>
         </div>
       </div>
     </header>
   );
-}
+};
 
 export default Header;
