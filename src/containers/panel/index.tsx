@@ -8,7 +8,7 @@ const PanelContainer = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden antialiased bg-slate-100 font-inter text-slate-600">
+    <div className="flex h-screen overflow-hidden antialiased bg-background font-inter text-textPrimary">
       <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
         <PanelHeader
@@ -23,4 +23,5 @@ const PanelContainer = () => {
     </div>
   );
 };
+
 export default PanelContainer;

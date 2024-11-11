@@ -4,26 +4,25 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primary: "#D4AF37", // Altın
+        primaryBright: "#FFD700", // Daha parlak altın
+        secondary: "#8C7851", // Bronz
+        accent: "#C0C0C0", // Gümüş
+        background: "#F5F5F5", // Açık gri
         surface: {
-          darker: "#212323",
-          dark: "#313535",
-          light: "#f5f5f5",
+          DEFAULT: "#FFFFFF", // Beyaz
+          light: "#F5F5F5", // Açık gri
+          dark: "#333333", // Koyu gri
         },
-        body: {
-          dark: "#313535",
-          light: "#F4F4F4",
-        },
-        ff: {
-          aqua: "#1EE3CE",
-          // aqua: '#eb1163',
-        },
+        border: "#E0E0E0", // Gri
+        textPrimary: "#333333", // Koyu gri
+        textSecondary: "#666666", // Orta gri
+        success: "#4CAF50", // Yeşil
+        warning: "#FFC107", // Sarı
+        error: "#F44336", // Kırmızı
+        errorDark: "#D32F2F", // Daha koyu kırmızı
+        info: "#2196F3", // Mavi
       },
-      borderWidth: {
-        3: "3px",
-      },
-    },
-    animation: {
-      "bounce-and-stop": "bounce 1s ease-in-out 2.5",
     },
   },
   plugins: [],

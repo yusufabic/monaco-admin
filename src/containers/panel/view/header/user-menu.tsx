@@ -1,51 +1,16 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Transition from "../../utils/Transition"; // Ensure you have a declaration file for this module
+import Transition from "../../utils/Transition";
+import LogoutButton from "../../../../components/logout-button";
+import { useAuth } from "../../../../context/AuthContext";
 
-const UserMenu = () => {
-  // Dummy user data
-  const user = {
-    UserName: "John Doe",
-    Email: "john.doe@example.com",
-    ImageUrl: "https://via.placeholder.com/32",
-  };
-
+const UserMenu: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const trigger = useRef<HTMLButtonElement>(null);
-  const dropdown = useRef<HTMLDivElement>(null);
-
-  // close on click outside
-  useEffect(() => {
-    const clickHandler = (event: MouseEvent) => {
-      const target = event.target;
-      if (
-        !dropdownOpen ||
-        (dropdown.current && dropdown.current.contains(target as Node)) ||
-        (trigger.current && trigger.current.contains(target as Node))
-      )
-        return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
-  });
-
-  // close if the esc key is pressed
-  useEffect(() => {
-    const keyHandler = (event: KeyboardEvent) => {
-      const { keyCode } = event;
-      if (!dropdownOpen || keyCode !== 27) return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener("keydown", keyHandler);
-    return () => document.removeEventListener("keydown", keyHandler);
-  });
+  const { user } = useAuth();
 
   return (
     <div className="relative inline-flex">
       <button
-        ref={trigger}
         className="inline-flex justify-center items-center group"
         aria-haspopup="true"
         onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -53,7 +18,7 @@ const UserMenu = () => {
       >
         <img
           className="w-8 h-8 rounded-full"
-          src={user?.ImageUrl}
+          src={user?.imageUrl}
           width="32"
           height="32"
           alt="User"
@@ -72,6 +37,7 @@ const UserMenu = () => {
       </button>
 
       <Transition
+        appear={true}
         className="origin-top-right z-10 absolute top-full right-0 min-w-44 bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 w-52"
         show={dropdownOpen}
         enter="transition ease-out duration-200 transform"
@@ -81,39 +47,10 @@ const UserMenu = () => {
         leaveStart="opacity-100"
         leaveEnd="opacity-0"
       >
-        <div
-          ref={dropdown}
-          onFocus={() => setDropdownOpen(true)}
-          onBlur={() => setDropdownOpen(false)}
-        >
-          <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200">
-            <div className="font-medium text-slate-800">{user?.UserName}</div>
-            <div className="text-xs text-slate-500 italic">{user?.Email}</div>
-          </div>
-          <ul>
+        <div>
+          <ul className="flex justify-center items-center">
             <li>
-              <Link
-                className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
-                to="/"
-              >
-                Anasayfa
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
-                to="/"
-              >
-                Profil
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
-                to="/logout"
-              >
-                Çıkış Yap
-              </Link>
+              <LogoutButton />
             </li>
           </ul>
         </div>

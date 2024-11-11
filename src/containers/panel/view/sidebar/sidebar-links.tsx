@@ -1,3 +1,4 @@
+import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 interface SideBarItemsProps {
@@ -13,41 +14,49 @@ const SideBarItems: React.FC<SideBarItemsProps> = ({
   sidebarOpen,
   closeSidebarOnNavLinkClick,
 }) => {
-  const { pathname } = useLocation();
+  const location = useLocation();
+  const pathname = location.pathname;
 
   return (
     <NavLink
-      end
       to={path}
-      className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
-        pathname.includes(`${path}`) && "hover:text-slate-200"
+      className={`block text-white ${
+        pathname.includes(`${path}`)
+          ? "hover:text-textPrimary"
+          : "hover:text-textSecondary"
       }`}
       onClick={closeSidebarOnNavLinkClick}
     >
-      <div className="flex items-center">
-        <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-          <path
-            className={`fill-current text-slate-400 ${
-              pathname.includes(`${path}`) && "text-indigo-300"
+      <div
+        className={`flex items-center px-2 py-2 rounded-sm mb-0.5 last:mb-0 ${
+          pathname.includes(`${path}`) ? "bg-primary" : "bg-surface-dark"
+        }`}
+      >
+        <svg
+          className={`w-6 h-6 flex-shrink-0 ${
+            pathname.includes(`${path}`)
+              ? "group-hover:text-textPrimary"
+              : "group-hover:text-textSecondary"
+          }`}
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            className={`fill-current ${
+              pathname.includes(`${path}`)
+                ? "text-primary-bright"
+                : "text-primary"
             }`}
-            d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z"
-          />
-          <path
-            className={`fill-current text-slate-700 ${
-              pathname.includes(`${path}`) && "!text-indigo-600"
-            }`}
-            d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z"
-          />
-          <path
-            className={`fill-current text-slate-600 ${
-              pathname.includes(`${path}`) && "text-indigo-500"
-            }`}
-            d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z"
-          />
+          >
+            <polygon points="12,2 2,7 12,12 22,7" />
+            <polygon points="12,12 2,17 12,22 22,17" />
+            <polygon points="2,7 2,17 12,22 12,12" />
+            <polygon points="22,7 22,17 12,22 12,12" />
+          </g>
         </svg>
         <span
-          className={`text-sm font-medium ml-3 lg:${
-            sidebarOpen ? "opacity-100" : "opacity-0"
+          className={`text-sm font-medium ml-3 whitespace-nowrap lg:${
+            sidebarOpen ? "opacity-0" : "hidden"
           } 2xl:opacity-100 duration-200`}
         >
           {title}
@@ -56,4 +65,5 @@ const SideBarItems: React.FC<SideBarItemsProps> = ({
     </NavLink>
   );
 };
+
 export default SideBarItems;
