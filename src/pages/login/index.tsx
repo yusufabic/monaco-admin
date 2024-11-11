@@ -66,6 +66,7 @@ const LoginPage: React.FC = () => {
                   type="password"
                   {...register("password")}
                   className="mb-1"
+                  autoComplete="current-password"
                 />
                 {errors.password && (
                   <p className="text-error">{errors.password.message}</p>

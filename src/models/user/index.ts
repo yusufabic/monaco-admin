@@ -6,4 +6,5 @@ export interface UserModel {
   Password: string;
   RoleId: number;
   Token?: string;
+  ImageUrl: string;
 }

@@ -5,9 +5,11 @@ const users: UserModel[] = [
     Id: 1,
     UserName: "admin",
     FullName: "Admin User",
-    Email: "admin@example.com",
-    Password: "password",
+    Email: "test@test.com",
+    Password: "test11",
     RoleId: 1,
+    ImageUrl:
+      "https://www.jahbatfc.org/wp-content/uploads/2024/02/soccer-image.webp",
   },
   {
     Id: 2,
@@ -16,26 +18,30 @@ const users: UserModel[] = [
     Email: "user@example.com",
     Password: "password",
     RoleId: 2,
+    ImageUrl:
+      "https://img.olympics.com/images/image/private/t_1-1_300/f_auto/v1687307644/primary/cqxzrctscdr8x47rly1g",
   },
 ];
 
 export const authService = {
-  login: (email: string, password: string): UserModel | null => {
+  login: (
+    email: string,
+    password: string
+  ): { token: string; user: Omit<UserModel, "Password"> } | null => {
     const user = users.find(
       (u) => u.Email === email && u.Password === password
     );
     if (user) {
-      user.Token = "fake-jwt-token";
-      localStorage.setItem("user", JSON.stringify(user));
-      return user;
+      const { Password, ...userWithoutPassword } = user;
+      return {
+        token: "fake-jwt-token",
+        user: userWithoutPassword,
+      };
     }
     return null;
   },
-  logout: () => {
-    localStorage.removeItem("user");
-  },
+  logout: () => {},
   getCurrentUser: (): UserModel | null => {
-    const user = localStorage.getItem("user");
-    return user ? JSON.parse(user) : null;
+    return null;
   },
 };

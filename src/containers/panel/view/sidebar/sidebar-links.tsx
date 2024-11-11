@@ -17,6 +17,21 @@ const SideBarItems: React.FC<SideBarItemsProps> = ({
   const location = useLocation();
   const pathname = location.pathname;
 
+  const [isCompactView, setIsCompactView] = React.useState(
+    window.innerWidth < 1535
+  );
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsCompactView(window.innerWidth < 1535);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <NavLink
       to={path}
@@ -56,7 +71,7 @@ const SideBarItems: React.FC<SideBarItemsProps> = ({
         </svg>
         <span
           className={`text-sm font-medium ml-3 whitespace-nowrap lg:${
-            sidebarOpen ? "opacity-0" : "hidden"
+            !sidebarOpen && isCompactView ? "hidden" : "opacity-0"
           } 2xl:opacity-100 duration-200`}
         >
           {title}
