@@ -60,7 +60,7 @@ const UserMenu: React.FC = () => {
           <Menu.Item>
             {({ active }) => (
               <button
-                onClick={() => logout()}
+                onClick={logout}
                 className={`${
                   active ? "bg-primary text-white" : "text-textPrimary"
                 } block px-4 py-2 text-sm w-full text-left`}

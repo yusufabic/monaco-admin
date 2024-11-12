@@ -33,8 +33,9 @@ const LoginPage: React.FC = () => {
   });
   const auth = useAuth();
 
-  const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    if (!auth.login(data.email, data.password)) {
+  const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
+    const success = await auth.login(data.email, data.password);
+    if (!success) {
       alert("Invalid email or password");
     }
   };

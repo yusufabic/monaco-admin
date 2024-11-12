@@ -24,24 +24,25 @@ const users: UserModel[] = [
 ];
 
 export const authService = {
-  login: (
+  login: async (
     email: string,
     password: string
-  ): { token: string; user: Omit<UserModel, "Password"> } | null => {
+  ): Promise<{ user: Omit<UserModel, "Password">; token: string } | null> => {
     const user = users.find(
       (u) => u.Email === email && u.Password === password
     );
     if (user) {
+      const token = "fake-jwt-token"; // Gerçek bir projede, bu token bir API'den alınmalıdır.
       const { Password, ...userWithoutPassword } = user;
-      return {
-        token: "fake-jwt-token",
-        user: userWithoutPassword,
-      };
+      return { user: userWithoutPassword, token };
     }
     return null;
   },
-  logout: () => {},
-  getCurrentUser: (): UserModel | null => {
-    return null;
+  logout: () => {
+    // Gerçek bir projede, burada API'ye logout isteği gönderilebilir.
+  },
+  getCurrentUser: (): Omit<UserModel, "Password"> | null => {
+    const user = localStorage.getItem("user");
+    return user ? JSON.parse(user) : null;
   },
 };
